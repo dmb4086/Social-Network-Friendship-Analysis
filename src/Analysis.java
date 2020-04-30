@@ -28,7 +28,8 @@ public class Analysis {
                 String line = scanner.nextLine();
 //                System.out.println(line);
 
-                int key = Integer.parseInt(String.valueOf(line.charAt(0)));
+                String number[] = line.split(" ");
+                int key = Integer.parseInt(String.valueOf(number[0]));
 
                 if (UserMap.containsKey(key)){
                     UserMap.put(key,UserMap.get(key)+1);
@@ -68,11 +69,11 @@ public class Analysis {
             if (counter == 9){
                 break;
             }
-            else {
+            else
                 System.out.println("User = " + entry.getKey() +
                         " Friends = " + entry.getValue());
                 counter++;
-            }
+
     }
         System.out.println(reverseSortedMap);
 
@@ -81,7 +82,7 @@ public class Analysis {
     public static void main(String[] args) throws FileNotFoundException {
         long startTime = System.nanoTime();
 
-        PoupulateUserBase("/Users/dev/Documents/GitHub/Social Network Friendship Analysis/friendships2.txt");
+        PoupulateUserBase("/Users/dev/Documents/GitHub/Social Network Friendship Analysis/twitch_friendships.txt");
         TopTenFriends(UserMap);
 
 
