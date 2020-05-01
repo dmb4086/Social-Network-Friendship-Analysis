@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 /**
  * The type Analysis.
  *
- * @AUTHOR: Dev Bhatt
+ * @author: Dev Bhatt
  */
 public class Analysis {
 
@@ -92,14 +92,20 @@ public class Analysis {
     /**
      * This function simply computes the average friends of all users
      *
-     * @param UserBase the user base
+     * @param map the user base
      * @return average : the average number of friends of all users
      */
-    public static int AverageFriendCount(HashMap<Integer, Integer> UserBase) {
+    public static float AverageFriendCount(HashMap<Integer, Integer> map) {
 
         // take in the hashmap, add all the values and divide the computed value by total users
+        float sum = 0.0f;
+        for (float f : map.values()) {
+            sum += f;
+        }
+        sum = sum/Totalusers;
 
-        return 0;
+
+        return sum;
     }
 
     /**
@@ -111,15 +117,16 @@ public class Analysis {
     public static void main(String[] args) throws FileNotFoundException {
         long startTime = System.nanoTime();
 
-        PoupulateUserBase("/Users/dev/Documents/GitHub/Social Network Friendship Analysis/friendships2.txt");
+        PoupulateUserBase("/Users/dev/Documents/GitHub/Social Network Friendship Analysis/twitch_friendships.txt");
         TopTenFriends(UserMap);
+        System.out.println("Average user Friends: "+ AverageFriendCount(UserMap));
 
 
         long endTime = System.nanoTime();
         long durationInNano = (endTime - startTime);
         long durationInMillis = TimeUnit.NANOSECONDS.toMillis(durationInNano);
 //        System.out.println(durationInNano);
-        System.out.println(durationInMillis);
+        System.out.println("Time took: "+ durationInMillis);
     }
 
 
