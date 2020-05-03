@@ -39,17 +39,24 @@ public class Analysis {
 //                System.out.println(line);
 
                 String number[] = line.split(" ");
-                int key = Integer.parseInt(String.valueOf(number[0]));
+                int key1 = Integer.parseInt(String.valueOf(number[0]));
+                int key2 = Integer.parseInt(String.valueOf(number[1]));
 
-                if (UserMap.containsKey(key)) {
-                    UserMap.put(key, UserMap.get(key) + 1);
+
+                if (UserMap.containsKey(key1)) {
+                    UserMap.put(key1, UserMap.get(key1) + 1);
                 } else {
-                    UserMap.put(key, 1);
+                    UserMap.put(key1, 1);
+                }
+                if (UserMap.containsKey(key2)) {
+                    UserMap.put(key2, UserMap.get(key2) + 1);
+                } else {
+                    UserMap.put(key2, 1);
                 }
             }
 
             System.out.println("Total Users: " + Totalusers);
-//            System.out.println(UserMap);
+            System.out.println(UserMap);
 
 
         } catch (FileNotFoundException e) {
