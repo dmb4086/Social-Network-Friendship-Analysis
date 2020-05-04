@@ -11,12 +11,16 @@ import java.util.stream.Collectors;
  *
  * @author: Dev Bhatt
  */
-public class Analysis {
+public class Analysis extends graph{
   /**
    * The constant UserMap.
    */
   public static HashMap<Integer, Integer> UserMap = new HashMap<Integer, Integer>();
   private static int Totalusers = 0;
+
+  public Analysis(int vertices) {
+    super(vertices);
+  }
 
   /**
    * Poupulate user base.
@@ -33,6 +37,9 @@ public class Analysis {
 
       Totalusers = Integer.parseInt(scanner.nextLine());
 
+      // making a new graph where each user is a vertex
+      graph graph = new graph(Totalusers);
+
       while (scanner.hasNextLine()) {
         String line = scanner.nextLine();
         //                System.out.println(line);
@@ -40,6 +47,10 @@ public class Analysis {
         String number[] = line.split(" ");
         int key1 = Integer.parseInt(String.valueOf(number[0]));
         int key2 = Integer.parseInt(String.valueOf(number[1]));
+
+        //populating the graph as we go through the file
+        graph.AddEdge(key1,key2);
+
 
         if (UserMap.containsKey(key1)) {
           UserMap.put(key1, UserMap.get(key1) + 1);
@@ -55,6 +66,21 @@ public class Analysis {
 
       System.out.println("Total Users: " + Totalusers);
       System.out.println(UserMap);
+      System.out.println("Adjacency list for the graph: " );
+      for (int i = 1; i < Totalusers ; i++) {
+        System.out.println(i + " -> ");
+        ArrayList<Integer> edgelist = graph.GetNeighbors(i);
+        for (int j = 1;; j++) {
+          if (j!=edgelist.size()){
+            System.out.println(edgelist.get(j-1)+ "->");
+          }
+          else {
+            System.out.println(edgelist.get(j-1));
+            break;
+          }
+          
+        }
+      }
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     }
@@ -106,6 +132,10 @@ public class Analysis {
     return sum;
   }
 
+  public static int GetTotalUsers(){
+    return Totalusers;
+  }
+
   /**
    * The entry point of application.
    *
@@ -115,11 +145,18 @@ public class Analysis {
   public static void main(String[] args) throws FileNotFoundException {
     long startTime = System.nanoTime();
 
+
     PoupulateUserBase(
-      "/Users/dev/Documents/GitHub/Social Network Friendship Analysis/twitch_friendships.txt"
+            "/Users/dev/Documents/GitHub/Social Network Friendship Analysis/friendships1.txt"
     );
     TopTenFriends(UserMap);
     System.out.println("Average user Friends: " + AverageFriendCount(UserMap));
+
+
+    int Vertices = Analysis.GetTotalUsers();
+    int edges = Vertices-1;
+
+
 
     long endTime = System.nanoTime();
     long durationInNano = (endTime - startTime);
@@ -127,4 +164,6 @@ public class Analysis {
     //        System.out.println(durationInNano);
     System.out.println("Time took: " + durationInMillis);
   }
+
+
 }
