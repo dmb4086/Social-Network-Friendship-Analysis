@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
  *
  * @author: Dev Bhatt
  */
-public class Analysis extends graph{
+public class Analysis extends graph {
   /**
    * The constant UserMap.
    */
@@ -49,8 +49,7 @@ public class Analysis extends graph{
         int key2 = Integer.parseInt(String.valueOf(number[1]));
 
         //populating the graph as we go through the file
-        graph.AddEdge(key1,key2);
-
+        graph.AddEdge(key1, key2);
 
         if (UserMap.containsKey(key1)) {
           UserMap.put(key1, UserMap.get(key1) + 1);
@@ -66,19 +65,13 @@ public class Analysis extends graph{
 
       System.out.println("Total Users: " + Totalusers);
       System.out.println(UserMap);
-      System.out.println("Adjacency list for the graph: " );
-      for (int i = 1; i < Totalusers ; i++) {
+      System.out.println("Adjacency list for the graph: ");
+      for (int i = 0; i < Totalusers; i++) {
         System.out.println(i + " -> ");
         ArrayList<Integer> edgelist = graph.GetNeighbors(i);
-        for (int j = 1;; j++) {
-          if (j!=edgelist.size()){
-            System.out.println(edgelist.get(j-1)+ "->");
-          }
-          else {
-            System.out.println(edgelist.get(j-1));
-            break;
-          }
-          
+
+        for (int j = 0; j < edgelist.size(); j++) {
+          System.out.print(edgelist.get(j));
         }
       }
     } catch (FileNotFoundException e) {
@@ -132,7 +125,7 @@ public class Analysis extends graph{
     return sum;
   }
 
-  public static int GetTotalUsers(){
+  public static int GetTotalUsers() {
     return Totalusers;
   }
 
@@ -145,18 +138,14 @@ public class Analysis extends graph{
   public static void main(String[] args) throws FileNotFoundException {
     long startTime = System.nanoTime();
 
-
     PoupulateUserBase(
-            "/Users/dev/Documents/GitHub/Social Network Friendship Analysis/friendships1.txt"
+      "/Users/dev/Documents/GitHub/Social Network Friendship Analysis/friendships1.txt"
     );
     TopTenFriends(UserMap);
     System.out.println("Average user Friends: " + AverageFriendCount(UserMap));
 
-
     int Vertices = Analysis.GetTotalUsers();
-    int edges = Vertices-1;
-
-
+    int edges = Vertices - 1;
 
     long endTime = System.nanoTime();
     long durationInNano = (endTime - startTime);
@@ -164,6 +153,4 @@ public class Analysis extends graph{
     //        System.out.println(durationInNano);
     System.out.println("Time took: " + durationInMillis);
   }
-
-
 }
