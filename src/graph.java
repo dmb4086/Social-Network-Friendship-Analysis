@@ -14,7 +14,7 @@ public class graph {
   public graph(int vertices) {
     AdjacencyListMap = new HashMap<Integer, ArrayList<Integer>>();
 
-    for (int i = 0; i <= vertices; i++) {
+    for (int i = 0; i < vertices; i++) {
       ArrayList<Integer> Neighbors = new ArrayList<Integer>();
       AdjacencyListMap.put(i, Neighbors);
     }
@@ -26,6 +26,10 @@ public class graph {
     }
     AdjacencyListMap.get(v).add(n);
     AdjacencyListMap.get(n).add(v);
+  }
+
+  public Map<Integer, ArrayList<Integer>> GetMap() {
+    return AdjacencyListMap;
   }
 
   /**
